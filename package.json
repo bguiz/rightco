@@ -1,0 +1,36 @@
+{
+  "name": "rightco",
+  "version": "0.0.0",
+  "description": "promise wrapped righto - replacement for co",
+  "main": "rightco.js",
+  "scripts": {
+    "test": "mocha --ui bdd --recursive ./test/**/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bguiz/rightco.git"
+  },
+  "keywords": [
+    "promise",
+    "generator",
+    "iterator",
+    "yield",
+    "righto",
+    "cps",
+    "errback",
+    "async"
+  ],
+  "author": "bguiz",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/bguiz/rightco/issues"
+  },
+  "homepage": "https://github.com/bguiz/rightco#readme",
+  "peerDependencies": {
+    "righto": "^1.5.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
+  }
+}
