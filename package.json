@@ -1,6 +1,6 @@
 {
   "name": "rightco",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "promise wrapped righto - replacement for co",
   "main": "rightco.js",
   "scripts": {
