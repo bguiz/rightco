@@ -38,6 +38,12 @@ describe('[rightco]', () => {
       },
     };
 
+    let thenableWhichThrows = {
+      then (resolve, reject) {
+        reject('on purpose');
+      },
+    };
+
     it('should resolve', (done) => {
       rightco(function* yieldThenablesAndResolve() {
           let result = yield thenableWhichResolves;
@@ -68,6 +74,38 @@ describe('[rightco]', () => {
         });
     });
 
+
+    it('should reject with a throw within the yield', (done) => {
+      rightco(function* yieldThenablesAndThrowInYield() {
+          let result = yield thenableWhichResolves;
+          result = yield thenableWhichThrows;
+          return result;
+        })
+        .then((result) => {
+          done('Was not supposed to resolve');
+        })
+        .catch((err) => {
+          expect(err).to.equal('on purpose');
+          done();
+        });
+    });
+
+    it('should reject with a throw in the generator function', (done) => {
+      rightco(function* yieldErrbacksAndReject() {
+          let result = yield thenableWhichResolves;
+          result = yield thenableWhichResolves;
+          throw 'on purpose';
+          return result;
+        })
+        .then((result) => {
+          done('Was not supposed to resolve');
+        })
+        .catch((err) => {
+          expect(err).to.equal('on purpose');
+          done();
+        });
+    });
+
   });
 
   describe('[errback]', () => {
@@ -80,6 +118,10 @@ describe('[rightco]', () => {
 
     function errbackWhichErrs(callback) {
       callback('on purpose');
+    }
+
+    function errbackWhichThrows(callback) {
+      throw 'on purpose';
     }
 
     it('should resolve', (done) => {
@@ -101,6 +143,37 @@ describe('[rightco]', () => {
       rightco(function* yieldErrbacksAndReject() {
           let result = yield righto(errbackWhichBacks);
           result = yield righto(errbackWhichErrs);
+          return result;
+        })
+        .then((result) => {
+          done('Was not supposed to resolve');
+        })
+        .catch((err) => {
+          expect(err).to.equal('on purpose');
+          done();
+        });
+    });
+
+    it('should reject with a throw within the yield', (done) => {
+      rightco(function* yieldErrbacksAndThrowInYield() {
+          let result = yield righto(errbackWhichBacks);
+          result = yield righto(errbackWhichThrows);
+          return result;
+        })
+        .then((result) => {
+          done('Was not supposed to resolve');
+        })
+        .catch((err) => {
+          expect(err).to.equal('on purpose');
+          done();
+        });
+    });
+
+    it('should reject with a throw in the generator function', (done) => {
+      rightco(function* yieldErrbacksAndThrow() {
+          let result = yield righto(errbackWhichBacks);
+          result = yield righto(errbackWhichBacks);
+          throw 'on purpose';
           return result;
         })
         .then((result) => {
