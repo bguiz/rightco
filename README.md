@@ -37,7 +37,7 @@ or an *errback*.
 As such use `rightco` to run your generator functions,
 where you need them to be wrapped in a `Promise`.
 
-### *thenable*s
+### *thenable*
 
 A `Promise` is a *thenable*.
 
@@ -48,7 +48,7 @@ let thenable = new Promise((resolve, reject) => {
 });
 ```
 
-### thenables and errbacks
+### *errback*
 
 Any function which has a callback function as its last parameter;
 and this callback function takes an error as its first parameter,
